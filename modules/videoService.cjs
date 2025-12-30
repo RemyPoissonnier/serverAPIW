@@ -1,3 +1,18 @@
+// modules/videoService.cjs
+const admin = require('firebase-admin');
+
+// ⚠️ IMPORTANT : Il faut vérifier si l'app est déjà initialisée pour éviter les erreurs de doublons
+if (!admin.apps.length) {
+    // Si tu utilises le serviceAccountKey.json (en local)
+    const serviceAccount = require('../serviceAccountKey.json'); // Vérifie le chemin !
+    admin.initializeApp({
+        credential: admin.credential.cert(serviceAccount)
+    });
+}
+
+// On récupère l'instance DB
+const db = admin.firestore();
+
 // Ajoute une variable pour activer/désactiver le mode test
 const MOCK_MODE = true; // ⬅️ Mets 'false' quand tu passeras en production
 const COST_VEO = 10
@@ -6,6 +21,8 @@ async function generateVideo(userId, prompt) {
     const userRef = db.collection('users').doc(userId);
 
     console.log(userRef);
+    console.log("RUN THE GENERATION");
+    
     
 
     // 1. DÉBIT (Ça, on le garde pour de vrai, pour tester la base de données)
