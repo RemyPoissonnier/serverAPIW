@@ -34,3 +34,6 @@ Pour le test avec la sandbox
 ```bash
 npx ngrok http 3000
 ```
+
+
+docker compose down -v ; docker compose up

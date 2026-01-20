@@ -1,3 +1,16 @@
+// src/types/index.ts
+
+export interface CheckoutRequestBody {
+  productId: string;
+  userId: string;
+}
+
+export interface GenerateRequestBody {
+  userId: string;
+  prompt: string;
+  options?: any; // Tu pourras préciser le type options plus tard
+}
+
 // backend/src/types/ia.types.ts
 
 export type IaModel = 'nanobanan' | 'runway' | 'pika' | 'luma' | 'custom';
@@ -35,3 +48,21 @@ export interface PolarWebhookData {
   // On accepte d'autres champs éventuels
   [key: string]: any; 
 }
+
+
+
+export type OptionsIaRP = {
+  aspectRatio: "16:9" | "9:16";
+
+  resolution: "720p" | "1080p";
+
+  durationSeconds: "4" | "6" | "8";
+};
+
+export type IaRequestPayload = {
+  // model: IaModel
+  // mode: IaGenerationMode
+  userId: string;
+  prompt: string;
+  options : OptionsIaRP;
+};

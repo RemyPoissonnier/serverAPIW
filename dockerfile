@@ -13,11 +13,11 @@ COPY package*.json ./
 RUN npm install
 
 # 3. On installe nodemon globalement (optionnel, mais pratique en dev)
-RUN npm install -g nodemon ts-tsx @polar-sh/sdk
+RUN npm install -g nodemon tsx @polar-sh/sdk
 
 # 4. On copie le reste du code
 COPY . .
 
 # 5. Commande de démarrage
 # En DEV : On lance directement avec nodemon et ts-node (pas de build nécessaire)
-CMD ["nodemon", "--exec", "tsx", "src/index.ts"]
+CMD ["nodemon", "--exec", "tsx", "src/server.ts"]

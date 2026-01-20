@@ -1,24 +1,24 @@
 // src/modules/videoService.ts
 
-import { UserData, VideoJobResult } from '../type';
+import { OptionsIaRP, UserData, VideoJobResult } from '../type';
 import {admin, db } from './auth'; // On réutilise l'instance initialisée proprement
 import { FieldValue } from 'firebase-admin/firestore'; // Pour l'incrément/remboursement
 
 // --- CONFIGURATION ---
 const MOCK_MODE = true; // ⬅️ Passe à false en prod
-const COST_VEO = 10;
+const COST_VEO = 0;
 
 // URLs de test
 const TEST_VIDEOS = {
     landscape: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-    portrait: "https://res.cloudinary.com/demo/video/upload/ar_9:16,c_fill,g_auto/samples/elephants-dream.mp4"
+    portrait: "https://res.cloudinary.com/demo/video/upload/w_720,h_1280,c_fill,g_auto/dog.mp4"
 };
 
 
 
 // --- FONCTIONS ---
 
-export async function generateVideo(userId: string, prompt: string): Promise<VideoJobResult> {
+export async function generateVideo(userId: string, prompt: string, options : OptionsIaRP): Promise<VideoJobResult> {
     const userRef = db.collection('users').doc(userId);
 
     console.log(`🚀 RUN GENERATION pour ${userId}`);
@@ -52,14 +52,12 @@ export async function generateVideo(userId: string, prompt: string): Promise<Vid
         if (MOCK_MODE) {
             console.log("🎬 MODE SIMULATION : Génération en cours...");
             
-            const isVertical = prompt.toLowerCase().includes('tiktok') || 
-                               prompt.toLowerCase().includes('vertical') ||
-                               prompt.toLowerCase().includes('reel');
+            const isVertical = options.aspectRatio == "9:16"
 
             const videoUrl = isVertical ? TEST_VIDEOS.portrait : TEST_VIDEOS.landscape;
             const format = isVertical ? "9:16 (TikTok)" : "16:9 (Paysage)";
 
-            console.log(`📐 Format détecté : ${format}`);
+            console.log(`📐 Format détecté : ${format}, pour ${options.durationSeconds}s de durée`);
             
             // Simulation d'attente (2.5s)
             await new Promise(resolve => setTimeout(resolve, 2500));
