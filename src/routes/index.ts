@@ -29,22 +29,22 @@ router.post(
 );
 
 // --- API ROUTES (JSON) ---
-router.post("/create-checkout", createCheckout);
-router.post("/generate", generateVideoController);
-router.post("/save-generation", saveGenerationController);
-router.get("/generations", authMiddleware, getUserGenerationsController);
-router.get("/slop-params", authMiddleware, getSlopParamsController);
-router.post("/slop-params", authMiddleware, saveSlopParamsController);
-router.post("/prompt/enhance", getEnhancePrompt);
-router.get("/status/:requestId", getJobStatusController);
-router.get("/subscription/me", authMiddleware, getSubscriptionStatus);
+router.post("create-checkout", createCheckout);
+router.post("generate", generateVideoController);
+router.post("save-generation", saveGenerationController);
+router.get("generations", authMiddleware, getUserGenerationsController);
+router.get("slop-params", authMiddleware, getSlopParamsController);
+router.post("slop-params", authMiddleware, saveSlopParamsController);
+router.post("prompt/enhance", getEnhancePrompt);
+router.get("status/:requestId", getJobStatusController);
+router.get("subscription/me", authMiddleware, getSubscriptionStatus);
 
 // --- AUTHENTIFICATION (AJOUTE ÇA ICI) ---
-router.post("/sessionLogin", sessionLogin);
-router.post("/logout", logout);
+router.post("sessionLogin", sessionLogin);
+router.post("logout", logout);
 
 // --- HEALTH CHECK ---
-router.get("/health", (_, res) => {
+router.get("health", (_, res) => {
   res.json({ status: "Online" });
 });
 

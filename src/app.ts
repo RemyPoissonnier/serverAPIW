@@ -30,6 +30,6 @@ app.use((req, res, next) => {
 app.use(express.urlencoded({ extended: true })); // Pour les formulaires classiques
 
 // 3. Montage des routes
-app.use("", router);
+app.use("/", router);
 
 export default app;
