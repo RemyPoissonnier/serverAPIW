@@ -32,13 +32,13 @@ router.post(
 
 // --- 2. API ROUTES (AJOUT DES "/" MANQUANTS) ---
 // En Express, les routes doivent commencer par un "/" sinon elles ne sont pas trouvées.
-router.post("/create-checkout", createCheckout);
-router.post("/generate", generateVideoController);
+router.post("/create-checkout",authMiddleware, createCheckout);
+router.post("/generate", authMiddleware, generateVideoController);
 router.post("/save-generation", saveGenerationController);
 router.get("/generations", authMiddleware, getUserGenerationsController);
 router.get("/slop-params", authMiddleware, getSlopParamsController);
 router.post("/slop-params", authMiddleware, saveSlopParamsController);
-router.post("/prompt/enhance", getEnhancePrompt);
+router.post("/prompt/enhance", authMiddleware, getEnhancePrompt);
 router.get("/status/:requestId", getJobStatusController);
 router.get("/subscription/me", authMiddleware, getSubscriptionStatus);
 
