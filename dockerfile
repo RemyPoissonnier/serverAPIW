@@ -1,5 +1,5 @@
 # On part d'une version légère de Node
-FROM node:18-alpine
+FROM node:20-slim
 
 # Création du dossier de travail
 WORKDIR /app
