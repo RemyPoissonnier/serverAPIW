@@ -20,7 +20,7 @@ app.use(cookieParser()); // 👈 C'est ce middleware qui crée req.cookies
 // Express exécute les middlewares en cascade. 
 // Ici, on va utiliser une astuce pour ne parser en JSON que si ce n'est PAS le webhook.
 app.use((req, res, next) => {
-  if (req.originalUrl.includes("/api/webhooks/polar")) {
+  if (req.originalUrl.includes("/webhooks/polar")) {
     next();
   } else {
     express.json()(req, res, next);
@@ -30,6 +30,6 @@ app.use((req, res, next) => {
 app.use(express.urlencoded({ extended: true })); // Pour les formulaires classiques
 
 // 3. Montage des routes
-app.use("/api", router);
+app.use("", router);
 
 export default app;

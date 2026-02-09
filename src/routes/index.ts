@@ -48,4 +48,7 @@ router.get("/health", (_, res) => {
   res.json({ status: "Online" });
 });
 
+router.get("/", (_, res) => {
+  res.json({ message: "Welcome" });
+});
 export default router;
