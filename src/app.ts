@@ -3,11 +3,15 @@ import express from "express";
 import cors from "cors";
 import router from "./routes";
 import "./modules/auth"; // Ton side-effect auth
+import cookieParser from "cookie-parser";
 
 const app = express();
 
 // 1. Sécurité & CORS
-app.use(cors({ origin: true, credentials: true }));
+app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
+
+// 2. COOKIES (C'est ça qui manquait !)
+app.use(cookieParser()); // 👈 C'est ce middleware qui crée req.cookies
 
 // 2. IMPORTANT : Le parser JSON global
 // Note : Pour que le webhook fonctionne avec express.raw, 

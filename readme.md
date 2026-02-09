@@ -35,5 +35,10 @@ Pour le test avec la sandbox
 npx ngrok http 3000
 ```
 
+## Commande run docker
+```bash
+open -a Docker  
 
 docker compose down -v ; docker compose up
+docker compose down ; docker compose up -d --build
+```

@@ -2,14 +2,18 @@ services:
   # Voici ton service principal (ton API)
   rpit-api:
     build: .             # Construit l'image à partir du dossier courant (.)
-    container_name: rpit-api-container
-    ports:
-      - "3000:3000"      # Ouvre le port 3000
+    # container_name: rpit-api-container
+    ports: 
+      - "${PORT}:${PORT}" # Utilise la variable fournie par Railway
+
     volumes:
       - .:/app           # "Miroir magique" : Ton dossier local se reflète dans le conteneur
       - /app/node_modules # Empêche d'écraser les modules du conteneur
     environment:
-      - STRIPE_SECRET_KEY=sk_test_... # On mettra tes clés secrètes ici plus tard
-      - VEO_API_KEY=veo_...
-      - POLAR_ACCESS_TOKEN=${POLAR_ACCESS_TOKEN}
-      - POLAR_WEBHOOK_SECRET=${POLAR_WEBHOOK_SECRET}
+      # - STRIPE_SECRET_KEY=sk_test_... # On mettra tes clés secrètes ici plus tard
+      # - VEO_API_KEY=veo_...
+      # - POLAR_ACCESS_TOKEN=${POLAR_ACCESS_TOKEN}
+      # - POLAR_WEBHOOK_SECRET=${POLAR_WEBHOOK_SECRET}
+      # - NODE_ENV=development
+      - STRIPE_SECRET_KEY=${{STRIPE_SECRET_KEY}}
+      - VEO_API_KEY=${{VEO_API_KEY}}

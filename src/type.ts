@@ -3,8 +3,16 @@
 export interface CheckoutRequestBody {
   productId: string;
   userId: string;
+  discountId: string | null;
 }
-
+export type User = {
+  uid: string;
+  pseudo: string;
+  email: string;
+  wallet_balance: number; // Nouveau compte : on met 0 direct
+  createdAt: string;
+  role: string;
+};
 export interface GenerateRequestBody {
   userId: string;
   prompt: string;
@@ -13,28 +21,27 @@ export interface GenerateRequestBody {
 
 // backend/src/types/ia.types.ts
 
-export type IaModel = 'nanobanan' | 'runway' | 'pika' | 'luma' | 'custom';
+export type IaModel = "nanobanan" | "runway" | "pika" | "luma" | "custom";
 
 // C'est le format que ta DB ou ton service de Job va stocker
-export type IaJobStatus = 'queued' | 'running' | 'succeeded' | 'failed';
+export type IaJobStatus = "queued" | "running" | "succeeded" | "failed";
 
 // --- INTERFACES ---
 
 export interface VideoJobResult {
-    requestId: string;
-    status: 'queued' | 'processing' | 'completed' | 'failed';
-    outputUrl?: string;
-    previewUrl?: string; // Ajouté au cas où tu as une preview
-    format?: string;
-    error?: string;
-    model?: string;
+  requestId: string;
+  status: "queued" | "processing" | "completed" | "failed";
+  outputUrl?: string;
+  previewUrl?: string; // Ajouté au cas où tu as une preview
+  format?: string;
+  error?: string;
+  model?: string;
 }
 
 export interface UserData {
-    wallet_balance?: number;
-    [key: string]: any;
+  wallet_balance?: number;
+  [key: string]: any;
 }
-
 
 // Interface pour décrire partiellement les données envoyées par Polar
 export interface PolarWebhookData {
@@ -46,10 +53,8 @@ export interface PolarWebhookData {
     name?: string;
   };
   // On accepte d'autres champs éventuels
-  [key: string]: any; 
+  [key: string]: any;
 }
-
-
 
 export type OptionsIaRP = {
   aspectRatio: "16:9" | "9:16";
@@ -64,5 +69,5 @@ export type IaRequestPayload = {
   // mode: IaGenerationMode
   userId: string;
   prompt: string;
-  options : OptionsIaRP;
+  options: OptionsIaRP;
 };
