@@ -1,13 +1,18 @@
-// auth.js
-export const admin = require('firebase-admin');
-// Assure-toi que ce fichier est bien au même niveau
-import serviceAccount from '../../serviceAccountKey.json';
+import admin from "firebase-admin";
 
-// On initialise une seule fois
-if (!admin.apps.length) {
-  admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount)
-  });
+const serviceAccountVar = process.env.FIREBASE_SERVICE_ACCOUNT;
+
+if (!serviceAccountVar) {
+  throw new Error("La variable FIREBASE_SERVICE_ACCOUNT est manquante !");
 }
 
+// On parse le JSON stocké dans la variable d'environnement
+const serviceAccount = JSON.parse(serviceAccountVar);
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  // Ajoute ici ton databaseURL si nécessaire
+});
+
+console.log("🔥 Firebase Admin initialisé avec succès");
 export const  db = admin.firestore();
